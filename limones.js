@@ -8,40 +8,40 @@ const ANCHO_LIMON=20;
 const ALTO_LIMON=20;
 
 let personajeX=canvas.width/2;
-let personajeY=canvas.height - (ALTURA_SUELO + ALTURA_PERSONAJE);
+let personajeY=canvas.height-(ALTURA_SUELO+ALTURA_PERSONAJE);
 let limonX=canvas.width/2;
 let limonY=0;
 let puntaje=0;
 let vidas=3;
 let velocidadCaida=200;
+let intervalo
 
 function iniciar(){
     intervalo = setInterval(bajarLimon, velocidadCaida);
-    dibujarSuelo();
     dibujarPersonaje();
+    dibujarSuelo();
     dibujarLimon();
     aparecerLimon();
-}  
 
+}
 function dibujarSuelo(){
     ctx.fillStyle="white";
     ctx.fillRect(0,canvas.height-ALTURA_SUELO,canvas.width,ALTURA_SUELO);
 }
 
 function dibujarPersonaje(){
-    ctx.fillStyle="skyblue";
+    ctx.fillStyle="brown";
     ctx.fillRect(personajeX,personajeY,ANCHO_PERSONAJE,ALTURA_PERSONAJE);
 }
 function moverIzquierda(){
     personajeX=personajeX-10;
     actualizarPantalla();
-    detectarAtrapado();
     
 }
 function moverDerecha(){
     personajeX=personajeX+10;
     actualizarPantalla();
-    detectarAtrapado();
+    
 }
 function actualizarPantalla(){
     limpiarCanva();
@@ -52,10 +52,12 @@ function actualizarPantalla(){
 function limpiarCanva(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
 }
+
 function dibujarLimon(){
     ctx.fillStyle="green";
     ctx.fillRect(limonX,limonY,ANCHO_LIMON,ALTO_LIMON);
 }
+
 function bajarLimon(){
     limonY=limonY+10;
     actualizarPantalla();
@@ -69,12 +71,28 @@ function detectarAtrapado(){
         puntaje=puntaje+1
         mostrarEnSpan("txtPuntaje",puntaje);
     }
+    if(puntaje==3){
+        velocidadCaida = 150;
+        clearInterval(intervalo);
+        intervalo = setInterval(bajarLimon, velocidadCaida);
+    }
+    if(puntaje==6){
+        velocidadCaida = 100;
+        clearInterval(intervalo);
+        intervalo = setInterval(bajarLimon, velocidadCaida);
+    }
+    if(puntaje==10){
+        alert("YA TIENES LO NECESARIO, HASTE TU LIMONADA");
+        clearInterval(intervalo);
+    }
 }
+
 function aparecerLimon(){
     limonX=generarAleatorio(0,canvas.width-ANCHO_LIMON);
     limonY=0
     actualizarPantalla();
 }
+
 function detectarPiso(){
     if(limonY+ALTO_LIMON==canvas.height-ALTURA_SUELO){
         aparecerLimon();
@@ -82,5 +100,20 @@ function detectarPiso(){
         let componente=document.getElementById("txtVidas");
         componente.textContent=vidas;
         mostrarEnSpan("txtVidas",vidas);
+        if(vidas<0){
+            alert("GAME OVER");
+            clearInterval(intervalo);
+
+        }
     }
+}
+function reiniciar(){
+    vidas = 3;
+    puntaje = 0;
+    velocidadCaida = 200;
+    mostrarEnSpan("txtVidas", vidas);
+    mostrarEnSpan("txtPuntaje", puntaje);
+    limonY = 0;
+    clearInterval(intervalo);
+    iniciar();
 }
