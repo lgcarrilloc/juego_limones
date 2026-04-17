@@ -142,3 +142,24 @@ canvas {
     font-size: 18px;
   }
 }
+
+.panel {
+  display: flex;
+  justify-content: center;
+  gap: 40px; /* distancia prudente entre puntaje y vidas */
+  align-items: center;
+}
+
+.panel span {
+  color: #39ff14; /* verde neón */
+  font-weight: bold;
+  text-shadow: 
+    0 0 5px #39ff14,
+    0 0 10px #39ff14,
+    0 0 20px #39ff14;
+}
+
+.panel p {
+  font-size: 18px;
+  margin: 0;
+}
