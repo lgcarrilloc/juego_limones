@@ -30,11 +30,13 @@ function dibujarPersonaje(){
 function moverIzquierda(){
     personajeX=personajeX-10;
     actualizarPantalla();
+    detectarAtrapado();
     
 }
 function moverDerecha(){
     personajeX=personajeX+10;
     actualizarPantalla();
+    detectarAtrapado();
 }
 function actualizarPantalla(){
     limpiarCanva();
@@ -52,4 +54,10 @@ function dibujarLimon(){
 function bajarLimon(){
     limonY=limonY+10;
     actualizarPantalla();
+}
+function detectarAtrapado(){
+    if(limonX+ANCHO_LIMON>personajeX && limonX<personajeX +ANCHO_PERSONAJE 
+        && limonY+ALTO_LIMON>personajeY && limonY<personajeY +ALTURA_PERSONAJE){
+    alert("Atrapado")
+    }
 }
