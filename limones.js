@@ -30,7 +30,7 @@ function dibujarSuelo(){
 }
 
 function dibujarPersonaje(){
-    ctx.fillStyle="green";
+    ctx.fillStyle="brown";
     ctx.fillRect(personajeX,personajeY,ANCHO_PERSONAJE,ALTURA_PERSONAJE);
 }
 function moverIzquierda(){
@@ -82,7 +82,7 @@ function detectarAtrapado(){
         intervalo = setInterval(bajarLimon, velocidadCaida);
     }
     if(puntaje==10){
-        alert("ganaste :D");
+        alert("YA TIENES LO NECESARIO, HASTE TU LIMONADA");
         clearInterval(intervalo);
     }
 }
@@ -101,7 +101,7 @@ function detectarPiso(){
         componente.textContent=vidas;
         mostrarEnSpan("txtVidas",vidas);
         if(vidas<0){
-            alert("juego finalizado");
+            alert("GAME OVER");
             clearInterval(intervalo);
 
         }
